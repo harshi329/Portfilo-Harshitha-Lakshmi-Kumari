@@ -80,7 +80,7 @@ function StatItem({ label, value, delay, inView }) {
 
 export default function Hero() {
   return (
-    <section id="hero" style={{ position:'relative', minHeight:'100vh', display:'flex', alignItems:'center', overflow:'hidden', background:'#070707' }}>
+    <section id="hero" style={{ position:'relative', minHeight:'100vh', display:'flex', alignItems:'center', overflow:'hidden', background:'#070707', paddingTop:'100px', paddingBottom:'60px', boxSizing:'border-box' }}>
       <ParticleCanvas />
 
       {/* Grid */}
