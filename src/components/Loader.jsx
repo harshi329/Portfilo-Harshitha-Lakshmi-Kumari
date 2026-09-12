@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
-const ease    = [0.25, 0.46, 0.45, 0.94]
-const easeOut = [0.16, 1, 0.3, 1]
+const ease        = [0.25, 0.46, 0.45, 0.94]
+const easeOut     = [0.16, 1, 0.3, 1]
+const shimmerEase = [0.35, 0.05, 0.25, 1]
 
 /* ── Ambient orbs ── */
 function AmbientOrbs() {
@@ -121,12 +122,12 @@ export default function Loader({ onComplete }) {
       [1,  700],
       [2, 1500],
       [4, 3200],
-      [5, 4300],
-      [6, 5100],
-      [7, 5900],
+      [5, 4700],
+      [6, 6400],
+      [7, 7800],
     ]
     const ids = t.map(([s, d]) => setTimeout(() => setStep(s), d))
-    const done = setTimeout(() => onComplete(), 7100)
+    const done = setTimeout(() => onComplete(), 9000)
     return () => { ids.forEach(clearTimeout); clearTimeout(done) }
   }, [onComplete])
 
@@ -280,8 +281,8 @@ export default function Loader({ onComplete }) {
                   initial={{ opacity:0, y:22 }}
                   animate={{ opacity: exiting ? 0 : 1, y:0 }}
                   transition={{
-                    opacity: exiting ? { duration:1.2, ease } : { duration:1.3, ease },
-                    y: { duration:1.3, ease },
+                    opacity: exiting ? { duration:1.2, ease } : { duration:1.6, ease },
+                    y: { duration:1.6, ease },
                   }}
                   style={{ textAlign:'center', position:'relative' }}
                 >
@@ -292,7 +293,7 @@ export default function Loader({ onComplete }) {
                     <motion.div
                       initial={{ y:'105%', opacity:0 }}
                       animate={{ y:0, opacity:1 }}
-                      transition={{ duration:1.1, ease:easeOut, delay:0.05 }}
+                      transition={{ duration:1.6, ease:easeOut, delay:0.1 }}
                       style={{
                         fontFamily:'Playfair Display, serif',
                       fontSize:'clamp(32px, 5vw, 60px)',
@@ -305,11 +306,12 @@ export default function Loader({ onComplete }) {
                       Harshitha
                       {step >= 5 && (
                         <motion.div
-                          initial={{ x:'-115%' }} animate={{ x:'215%' }}
-                          transition={{ duration:1.9, ease:easeOut }}
+                          initial={{ x:'-105%' }} animate={{ x:'195%' }}
+                          transition={{ duration:3.0, ease:shimmerEase }}
                           style={{
                             position:'absolute', inset:0, pointerEvents:'none',
-                            background:'linear-gradient(105deg, transparent 15%, rgba(245,241,232,0.1) 38%, rgba(227,201,138,0.3) 50%, rgba(245,241,232,0.1) 62%, transparent 85%)',
+                            background:'linear-gradient(105deg, transparent 15%, rgba(245,241,232,0.12) 38%, rgba(227,201,138,0.38) 50%, rgba(245,241,232,0.12) 62%, transparent 85%)',
+                            mixBlendMode:'screen',
                           }}
                         />
                       )}
@@ -321,7 +323,7 @@ export default function Loader({ onComplete }) {
                     <motion.div
                       initial={{ y:'105%', opacity:0 }}
                       animate={{ y:0, opacity:1 }}
-                      transition={{ duration:1.1, ease:easeOut, delay:0.2 }}
+                      transition={{ duration:1.6, ease:easeOut, delay:0.35 }}
                       style={{
                         fontFamily:'Playfair Display, serif',
                         fontSize:'clamp(32px, 5vw, 60px)',
@@ -335,11 +337,12 @@ export default function Loader({ onComplete }) {
                       Lakshmi Kumari
                       {step >= 5 && (
                         <motion.div
-                          initial={{ x:'-115%' }} animate={{ x:'215%' }}
-                          transition={{ duration:1.9, ease:easeOut, delay:0.2 }}
+                          initial={{ x:'-105%' }} animate={{ x:'195%' }}
+                          transition={{ duration:3.0, ease:shimmerEase, delay:0.25 }}
                           style={{
                             position:'absolute', inset:0, pointerEvents:'none',
-                            background:'linear-gradient(105deg, transparent 15%, rgba(227,201,138,0.08) 38%, rgba(227,201,138,0.28) 50%, rgba(227,201,138,0.08) 62%, transparent 85%)',
+                            background:'linear-gradient(105deg, transparent 15%, rgba(227,201,138,0.12) 38%, rgba(227,201,138,0.36) 50%, rgba(227,201,138,0.12) 62%, transparent 85%)',
+                            mixBlendMode:'screen',
                           }}
                         />
                       )}
@@ -350,7 +353,7 @@ export default function Loader({ onComplete }) {
                   <motion.div
                     initial={{ scaleX:0, opacity:0 }}
                     animate={{ scaleX:1, opacity:1 }}
-                    transition={{ scaleX:{ duration:1.6, ease, delay:0.3 }, opacity:{ duration:0.9 } }}
+                    transition={{ scaleX:{ duration:2.0, ease, delay:0.5 }, opacity:{ duration:1.2 } }}
                     style={{
                       height:'1px', width:'240px', margin:'22px auto 0',
                       background:'linear-gradient(90deg, transparent, #C9A45C 25%, #E3C98A 50%, #C9A45C 75%, transparent)',
