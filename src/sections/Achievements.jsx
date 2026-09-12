@@ -106,7 +106,7 @@ export default function Achievements() {
 
         {/* Table header */}
         <motion.div initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ delay: 0.3 }}
-          style={{ display: 'grid', gridTemplateColumns: '80px 180px 1fr 110px 140px 130px',
+          style={{ display: 'grid', gridTemplateColumns: '75px 170px 1fr 140px 130px 125px',
             gap: '16px', padding: '12px 24px',
             borderBottom: '1px solid rgba(201,164,92,0.18)', marginBottom: '4px' }}
           className="cert-row-head">
@@ -128,7 +128,7 @@ export default function Achievements() {
               {/* Main row — click to expand description */}
               <div
                 onClick={() => setExpanded(isOpen ? null : i)}
-                style={{ display: 'grid', gridTemplateColumns: '80px 180px 1fr 110px 140px 130px',
+                style={{ display: 'grid', gridTemplateColumns: '75px 170px 1fr 140px 130px 125px',
                   gap: '16px', padding: '20px 24px',
                   borderBottom: isOpen ? 'none' : '1px solid rgba(201,164,92,0.08)',
                   background: isOpen ? 'rgba(201,164,92,0.05)' : 'transparent',
@@ -165,11 +165,12 @@ export default function Achievements() {
                   color: isOpen ? '#F5F1E8' : '#C8C0B0', transition: 'color 0.3s' }}>{cert.title}</div>
 
                 {/* Field badge */}
-                <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.65rem',
-                  letterSpacing: '0.08em', color: cert.fieldColor,
-                  border: `1px solid ${cert.fieldColor}55`, padding: '4px 9px',
+                <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.62rem',
+                  letterSpacing: '0.06em', color: cert.fieldColor,
+                  border: `1px solid ${cert.fieldColor}55`, padding: '4px 10px',
                   background: `${cert.fieldColor}15`, whiteSpace: 'nowrap',
-                  display: 'inline-block' }}>{cert.field}</span>
+                  display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                  width: 'fit-content', borderRadius: '2px', boxSizing: 'border-box' }}>{cert.field}</span>
 
                 {/* Status */}
                 <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.65rem',
