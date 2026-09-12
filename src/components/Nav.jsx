@@ -11,9 +11,9 @@ const links = [
 ]
 
 export default function Nav() {
-  const [scrolled, setScrolled]   = useState(false)
-  const [active,   setActive]     = useState('hero')
-  const [menuOpen, setMenuOpen]   = useState(false)
+  const [scrolled,  setScrolled]  = useState(false)
+  const [active,    setActive]    = useState('hero')
+  const [menuOpen,  setMenuOpen]  = useState(false)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60)
@@ -42,35 +42,29 @@ export default function Nav() {
       <motion.nav
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.9, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+        transition={{ duration: 1.0, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
         style={{
           position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
           padding: '0 56px',
-          height: scrolled ? '68px' : '84px',
+          height: scrolled ? '64px' : '80px',
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          background: scrolled
-            ? 'rgba(5,5,5,0.88)'
-            : 'linear-gradient(180deg, rgba(5,5,5,0.6) 0%, transparent 100%)',
-          backdropFilter: scrolled ? 'blur(24px) saturate(180%)' : 'none',
-          borderBottom: scrolled ? '1px solid rgba(201,164,92,0.08)' : 'none',
+          background: scrolled ? 'rgba(7,7,7,0.92)' : 'transparent',
+          backdropFilter: scrolled ? 'blur(24px)' : 'none',
+          borderBottom: scrolled ? '1px solid rgba(201,164,92,0.07)' : 'none',
           transition: 'height 0.4s ease, background 0.5s ease, border 0.4s ease',
         }}
       >
-        {/* ── Logo ── */}
-        <button
-          onClick={() => scrollTo('#hero')}
-          style={{ background: 'none', border: 'none', cursor: 'none', padding: 0 }}
-        >
-          <span style={{
-            fontFamily: 'Playfair Display, serif',
-            fontSize: '1.5rem', fontWeight: 700, fontStyle: 'italic',
-            letterSpacing: '0.04em', color: '#F5F1E8',
-          }}>Harshi</span>
-          <span style={{ color: '#C9A45C', fontFamily: 'Playfair Display, serif', fontSize: '1.5rem' }}>.</span>
+        {/* Logo */}
+        <button onClick={() => scrollTo('#hero')}
+          style={{ background: 'none', border: 'none', cursor: 'none', padding: 0, display: 'flex', alignItems: 'baseline', gap: '1px' }}>
+          <span style={{ fontFamily:'Playfair Display, serif', fontSize:'1.4rem', fontWeight:700, fontStyle:'italic', letterSpacing:'0.04em', color:'#F5F1E8' }}>
+            Harshi
+          </span>
+          <span style={{ fontFamily:'Playfair Display, serif', fontSize:'1.4rem', fontWeight:700, color:'#C9A45C' }}>.</span>
         </button>
 
-        {/* Desktop links */}
-        <ul style={{ display: 'flex', gap: '4px', listStyle: 'none' }} className="nav-desktop">
+        {/* Desktop links — Inter, clean, no box */}
+        <ul style={{ display:'flex', gap:'0', listStyle:'none' }} className="nav-desktop">
           {links.map(({ label, href }) => {
             const id       = href.replace('#', '')
             const isActive = active === id
@@ -79,38 +73,23 @@ export default function Nav() {
                 <button
                   onClick={() => scrollTo(href)}
                   style={{
-                    fontFamily: 'Playfair Display, serif',
-                    fontSize: '0.95rem',
-                    fontWeight: isActive ? 700 : 400,
-                    fontStyle: isActive ? 'italic' : 'normal',
-                    letterSpacing: '0.06em',
-                    color: isActive ? '#C9A45C' : 'rgba(200,192,176,0.8)',
-                    background: isActive ? 'rgba(201,164,92,0.07)' : 'none',
-                    border: isActive ? '1px solid rgba(201,164,92,0.2)' : '1px solid transparent',
-                    cursor: 'none',
-                    padding: '8px 18px',
-                    position: 'relative',
-                    transition: 'all 0.3s ease',
+                    fontFamily: 'Inter, sans-serif',
+                    fontSize: '0.72rem', fontWeight: isActive ? 500 : 400,
+                    letterSpacing: '0.16em', textTransform: 'uppercase',
+                    color: isActive ? '#C9A45C' : 'rgba(200,192,176,0.65)',
+                    background: 'none', border: 'none', cursor: 'none',
+                    padding: '8px 16px', position: 'relative',
+                    transition: 'color 0.3s ease',
                   }}
-                  onMouseEnter={e => {
-                    if (!isActive) {
-                      e.currentTarget.style.color = '#F5F1E8'
-                      e.currentTarget.style.fontStyle = 'italic'
-                    }
-                  }}
-                  onMouseLeave={e => {
-                    if (!isActive) {
-                      e.currentTarget.style.color = 'rgba(200,192,176,0.8)'
-                      e.currentTarget.style.fontStyle = 'normal'
-                    }
-                  }}
+                  onMouseEnter={e => { if (!isActive) e.currentTarget.style.color = '#F5F1E8' }}
+                  onMouseLeave={e => { if (!isActive) e.currentTarget.style.color = 'rgba(200,192,176,0.65)' }}
                 >
                   {label}
                   {isActive && (
                     <motion.div
-                      layoutId="nav-pill"
+                      layoutId="nav-line"
                       style={{
-                        position: 'absolute', bottom: '4px', left: '18px', right: '18px',
+                        position: 'absolute', bottom: '2px', left: '16px', right: '16px',
                         height: '1px',
                         background: 'linear-gradient(90deg, transparent, #C9A45C, transparent)',
                       }}
@@ -123,97 +102,76 @@ export default function Nav() {
           })}
         </ul>
 
-        {/* ── CTA pill — desktop only ── */}
+        {/* Hire Me CTA */}
         <motion.button
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
+          transition={{ delay: 1.2 }}
           onClick={() => scrollTo('#contact')}
           className="nav-cta"
           style={{
             fontFamily: 'Inter, sans-serif',
-            fontSize: '0.62rem', fontWeight: 600,
-            letterSpacing: '0.2em', textTransform: 'uppercase',
+            fontSize: '0.65rem', fontWeight: 600,
+            letterSpacing: '0.18em', textTransform: 'uppercase',
             color: '#070707',
             background: 'linear-gradient(135deg, #C9A45C, #E3C98A)',
-            border: 'none', padding: '9px 22px',
+            border: 'none', padding: '10px 24px',
             cursor: 'none',
             transition: 'opacity 0.3s, transform 0.3s',
           }}
-          onMouseEnter={e => { e.currentTarget.style.opacity = '0.85'; e.currentTarget.style.transform = 'translateY(-1px)' }}
-          onMouseLeave={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.transform = 'translateY(0)' }}
+          onMouseEnter={e => { e.currentTarget.style.opacity='0.85'; e.currentTarget.style.transform='translateY(-1px)' }}
+          onMouseLeave={e => { e.currentTarget.style.opacity='1'; e.currentTarget.style.transform='translateY(0)' }}
         >
           Hire Me
         </motion.button>
 
-        {/* ── Mobile hamburger ── */}
-        <button
-          onClick={() => setMenuOpen(o => !o)}
-          className="hamburger"
+        {/* Mobile hamburger */}
+        <button onClick={() => setMenuOpen(o => !o)} className="hamburger"
           aria-label="Toggle menu"
-          style={{ display: 'none', flexDirection: 'column', gap: '5px', background: 'none', border: 'none', cursor: 'pointer', padding: '8px' }}
-        >
-          {[0, 1, 2].map(i => (
+          style={{ display:'none', flexDirection:'column', gap:'5px', background:'none', border:'none', cursor:'pointer', padding:'8px' }}>
+          {[0,1,2].map(i => (
             <motion.div key={i}
-              animate={
-                menuOpen
-                  ? i === 0 ? { rotate: 45, y: 6 }
-                  : i === 1 ? { opacity: 0, scaleX: 0 }
-                  : { rotate: -45, y: -6 }
-                  : { rotate: 0, y: 0, opacity: 1, scaleX: 1 }
-              }
-              transition={{ duration: 0.28 }}
-              style={{ width: '22px', height: '1px', background: '#C9A45C', transformOrigin: 'center' }}
+              animate={menuOpen ? i===0?{rotate:45,y:6}:i===1?{opacity:0,scaleX:0}:{rotate:-45,y:-6} : {rotate:0,y:0,opacity:1,scaleX:1}}
+              transition={{ duration:0.28 }}
+              style={{ width:'22px', height:'1px', background:'#C9A45C', transformOrigin:'center' }}
             />
           ))}
         </button>
       </motion.nav>
 
-      {/* ── Mobile menu ── */}
+      {/* Mobile menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ opacity: 0, x: '100%' }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: '100%' }}
-            transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+            initial={{ opacity:0, x:'100%' }} animate={{ opacity:1, x:0 }} exit={{ opacity:0, x:'100%' }}
+            transition={{ duration:0.4, ease:[0.25,0.46,0.45,0.94] }}
             style={{
-              position: 'fixed', top: 0, right: 0, bottom: 0, width: '75vw', maxWidth: '300px',
-              background: '#080808',
-              borderLeft: '1px solid rgba(201,164,92,0.12)',
-              zIndex: 99,
-              display: 'flex', flexDirection: 'column', justifyContent: 'center',
-              padding: '48px 40px',
+              position:'fixed', top:0, right:0, bottom:0, width:'75vw', maxWidth:'300px',
+              background:'#080808', borderLeft:'1px solid rgba(201,164,92,0.12)',
+              zIndex:99, display:'flex', flexDirection:'column', justifyContent:'center', padding:'48px 40px',
             }}
           >
-            {/* Close line at top */}
-            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '2px', background: 'linear-gradient(90deg, #C9A45C, transparent)' }} />
-
-            <ul style={{ listStyle: 'none' }}>
+            <div style={{ position:'absolute', top:0, left:0, right:0, height:'2px', background:'linear-gradient(90deg, #C9A45C, transparent)' }} />
+            <ul style={{ listStyle:'none' }}>
               {links.map(({ label, href }, idx) => (
                 <motion.li key={href}
-                  initial={{ opacity: 0, x: 24 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: idx * 0.07, duration: 0.4 }}
-                  style={{ marginBottom: '32px' }}
-                >
-                  <button
-                    onClick={() => scrollTo(href)}
+                  initial={{ opacity:0, x:24 }} animate={{ opacity:1, x:0 }}
+                  transition={{ delay:idx*0.07, duration:0.4 }}
+                  style={{ marginBottom:'32px' }}>
+                  <button onClick={() => scrollTo(href)}
                     style={{
-                      fontFamily: 'Playfair Display, serif',
-                      fontSize: '1.8rem', fontWeight: active === href.replace('#','') ? 700 : 300,
-                      fontStyle: active === href.replace('#','') ? 'italic' : 'normal',
-                      color: active === href.replace('#','') ? '#C9A45C' : '#F5F1E8',
-                      background: 'none', border: 'none', cursor: 'pointer',
-                      transition: 'color 0.3s',
+                      fontFamily:'Playfair Display, serif',
+                      fontSize:'1.8rem', fontWeight:active===href.replace('#','')?700:300,
+                      fontStyle:active===href.replace('#','')?'italic':'normal',
+                      color:active===href.replace('#','')?'#C9A45C':'#F5F1E8',
+                      background:'none', border:'none', cursor:'pointer', transition:'color 0.3s',
                     }}
                   >{label}</button>
                 </motion.li>
               ))}
             </ul>
-
-            <div style={{ marginTop: '40px', paddingTop: '32px', borderTop: '1px solid rgba(201,164,92,0.1)' }}>
-              <p style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.6rem', letterSpacing: '0.2em', color: '#5A5347', marginBottom: 0 }}>
+            <div style={{ paddingTop:'28px', borderTop:'1px solid rgba(201,164,92,0.1)' }}>
+              <p style={{ fontFamily:'JetBrains Mono, monospace', fontSize:'0.58rem', letterSpacing:'0.18em', color:'#5A5347', margin:0 }}>
                 CYBERSECURITY · CSE · VFSTR
               </p>
             </div>

@@ -118,15 +118,15 @@ export default function Loader({ onComplete }) {
 
   useEffect(() => {
     const t = [
-      [1,  350],
-      [2, 1000],
-      [4, 2600],   // skip step 3 — go straight from spread to name
-      [5, 3700],
-      [6, 4500],
-      [7, 5300],
+      [1,  700],
+      [2, 1500],
+      [4, 3200],
+      [5, 4300],
+      [6, 5100],
+      [7, 5900],
     ]
     const ids = t.map(([s, d]) => setTimeout(() => setStep(s), d))
-    const done = setTimeout(() => onComplete(), 6600)
+    const done = setTimeout(() => onComplete(), 7100)
     return () => { ids.forEach(clearTimeout); clearTimeout(done) }
   }, [onComplete])
 
@@ -185,7 +185,7 @@ export default function Loader({ onComplete }) {
                     <motion.span
                       initial={{ opacity:0, filter:'blur(22px)', y:10 }}
                       animate={{ opacity:1, filter:'blur(0px)', y:0 }}
-                      transition={{ duration:1.5, ease }}
+                      transition={{ duration:2.0, ease }}
                       style={{
                         fontFamily:'Playfair Display, serif',
                         fontSize:'clamp(42px, 7vw, 76px)',
